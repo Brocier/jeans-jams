@@ -7,7 +7,6 @@ class Api::ArtistsController < ApplicationController
 
   def create
     @artist = Artist.create!(artist_params)
-
     render json: @artist
   end
 
@@ -31,7 +30,6 @@ class Api::ArtistsController < ApplicationController
   end
 
   private
-
   def artist_params
     params.require(:artist).permit(:name, :photo_url, :nationality)
   end
