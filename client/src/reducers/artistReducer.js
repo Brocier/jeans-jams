@@ -1,25 +1,20 @@
-function userReducer(state = [
-  {
-    username: 'Gandalf',
-    _id: '1'
-  }
-], action) {
+function artistReducer(state = [], action) {
   switch (action.type) {
 
     case 'GET_ARTISTS':
-      return [...action.usersFromDatabase]
+      return [...action.artistsFromDatabase]
 
     case 'CREATE_ARTIST':
       return [
         ...state,
-        action.newUserData
+        action.newArtistData
       ]
 
     case 'EDIT_ARTIST':
       return updateObjectInArray(state, action)
 
     case 'DELETE_ARTIST':
-      return state.filter(user => user._id !== action.userToDeleteId)
+      return state.filter(artist => artist._id !== action.artistToDeleteId)
 
     default:
       return state
@@ -27,15 +22,15 @@ function userReducer(state = [
 }
 
 function updateObjectInArray(array, action) {
-  return array.map((user) => {
-    if (user._id !== action.editedUserData.id) {
-      return user
+  return array.map((artist) => {
+    if (artist._id !== action.editedArtistData.id) {
+      return artist
     }
     return {
-      ...user,
-      ...action.editedUserData
+      ...artist,
+      ...action.editedArtistData
     }
   })
 }
 
-export default userReducer
+export default artistReducer

@@ -1,57 +1,57 @@
 import axios from 'axios'
 
-export function sendUsersToState(usersFromDatabase) {
-  return {type: 'GET_USERS', usersFromDatabase}
+export function sendArtistsToState(artistsFromDatabase) {
+  return {type: 'GET_ARTISTS', artistsFromDatabase}
 }
 
-export function getUserRoute() {
+export function getArtistRoute() {
   return function (dispatch) {
     return axios
-      .get('/api/users')
+      .get('/api/artists')
       .then((response) => {
-        dispatch(sendUsersToState(response.data))
+        dispatch(sendArtistsToState(response.data))
       })
   }
 }
 
-export function sendNewUserToState(newUserData) {
-  return {type: 'CREATE_USER', newUserData}
+export function sendNewArtistToState(newArtistData) {
+  return {type: 'CREATE_ARTIST', newArtistData}
 }
 
-export function sendNewUserToDatabase(newUserInfo) {
+export function sendNewArtistToDatabase(newArtistInfo) {
   return function (dispatch) {
     return axios
-      .post('/api/users', newUserInfo)
+      .post('/api/artists', newArtistInfo)
       .then((response) => {
-        dispatch(sendNewUserToState(response.data))
+        dispatch(sendNewArtistToState(response.data))
       })
   }
 }
 
-export function editedUserToState(editedUserData) {
-  return {type: 'EDIT_USER', editedUserData}
+export function editedArtistToState(editedArtistData) {
+  return {type: 'EDIT_ARTIST', editedArtistData}
 }
 
-export function editUserInDatabase(editedUserInfo) {
+export function editArtistInDatabase(editedArtistInfo) {
   return function (dispatch) {
     return axios
-      .patch(`/api/users/${editedUserInfo.id}`, editedUserInfo)
+      .patch(`/api/artists/${editedArtistInfo.id}`, editedArtistInfo)
       .then((response) => {
-        dispatch(editedUserToState(editedUserInfo))
+        dispatch(editedArtistToState(editedArtistInfo))
       })
   }
 }
 
-export function deleteUserFromState(userToDeleteId) {
-  return {type: 'DELETE_USER', userToDeleteId}
+export function deleteArtistFromState(artistToDeleteId) {
+  return {type: 'DELETE_ARTIST', artistToDeleteId}
 }
 
-export function deleteUserFromDatabase(userToDeleteFromDatabase) {
+export function deleteArtistFromDatabase(artistToDeleteFromDatabase) {
   return function (dispatch) {
     return axios
-      .delete(`/api/users/${userToDeleteFromDatabase._id}`)
+      .delete(`/api/artists/${artistToDeleteFromDatabase._id}`)
       .then((response) => {
-        dispatch(deleteUserFromState(userToDeleteFromDatabase._id))
+        dispatch(deleteArtistFromState(artistToDeleteFromDatabase._id))
       })
   }
 }
